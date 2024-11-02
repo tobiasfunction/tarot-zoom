@@ -1,32 +1,38 @@
 import './App.css';
-import { useMemo } from 'react';
 
-import { BlurFilter, TextStyle } from 'pixi.js';
-import { Stage, Container, Sprite, Text } from '@pixi/react';
+import { Stage, Text } from '@pixi/react';
+import { TextStyle } from 'pixi.js';
+import { useState } from 'react';
+import ZoomImage from './ZoomImage';
+import checker2 from './assets/checker2.png';
+import checker3 from './assets/checker3.png';
+
 
 const App = () => {
+  const [zoomTargetX, setZoomTargetX] = useState(400)
+  const [zoomTargetY, setZoomTargetY] = useState(300)
 
   return (
     <Stage width={800} height={600} options={{ background: 0x1099bb }}>
-      <Container x={200} y={200}>
-        <Text
-          text="Hello World"
-          anchor={0.5}
-          x={220}
-          y={150}
-          style={
-            new TextStyle({
-              align: 'center',
-              fill: '0xffffff',
-              fontSize: 50,
-              letterSpacing: 20,
-              dropShadow: true,
-              dropShadowColor: '#E72264',
-              dropShadowDistance: 6,
-            })
-          }
-        />
-      </Container>
+      <ZoomImage image={checker2} initialX={400} initialY={300} initialWidth={100} initialHeight={100} zoomX={zoomTargetX} zoomY={zoomTargetY} />
+
+      <ZoomImage image={checker3} initialX={425} initialY={310} initialWidth={20} initialHeight={20} zoomX={zoomTargetX} zoomY={zoomTargetY}/>
+
+      {/* <ZoomImage image={checker2} initialX={390} initialY={300} initialWidth={10} initialHeight={10} zoomX={zoomX} zoomY={zoomY}/> */}
+
+
+      <Text text="+"
+        x={zoomTargetX}
+        y={zoomTargetY}
+        anchor={0.5}
+        isSprite={true}
+        style={new TextStyle({
+          align: 'center',
+          fill: '#ff0000',
+          fontSize: 32
+
+        })}
+      />
     </Stage>
   );
 };
